@@ -1,0 +1,69 @@
+Three core concepts of Redux
+
+Store, Action, Reducer
+
+Reducer => is a function which takes previous state and action and returns newstate
+    reducer => (previousState, action) => returns newstate
+
+const reducer = (state, action) => {
+  switch(action.type) {
+    case BUY_CAKE : 
+      return {
+        ...state,
+        no_of_cakes = no_of_cakes - 1
+      }
+  }
+}
+
+Action => is an object which contains type and payload. We will dispatch and action
+dispatch({type: "BUY_CAKE", payload: data})
+
+Store = {
+  no_of_cakes: 5,
+  ...
+}
+
+
+Redux without react
+1.Allows access to state via getState()
+2.Allows state to be updated via dispatch(action)
+3.Registers listeners via subscribe(listener)
+
+
+Combining Multuple Reducers
+import combineReducers from 'redux'
+
+Middleware in Redux
+1.Use middleware for logging etc.
+2.Provides 3rd party extenion point b/w action, and the point it reaches the reducers
+
+we use redux-thunk for async actions
+
+React-Redux
+
+const mapStateToProps = (state) => {
+  return {
+    noOfcakes: state.noOfcakes,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    buyCake: () => dispatch(buyCake()),
+  }
+}
+import { connect } from "react-redux"
+
+export default connect(mapStateToProps, mapDispatchToProps)(CakeContainer)
+after connecting them we can access state values and reducers through props.
+Ex: props.noOfcakes, props.buyCake()
+
+
+Now  React-Redux + Hooks
+with hooks it will help subscribe to store and dispatch actions without connect()
+1.useSelector() hook ==> const noOfcakes = useSelector((state) => state.noOfcakes) ==> It takes store as an argument and returns data as needed
+2.useDiapatch() hook ==> cosnt dispatch = useDiapatch() ==> It returns dispatch function.
+
+Redux Devtools extenion
+
+
